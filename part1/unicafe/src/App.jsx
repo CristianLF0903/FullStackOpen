@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Statistics from "./Components/Statistics";
 
 const App = () => {
   // guarda los clics de cada botón en su propio estado
@@ -32,15 +33,14 @@ const App = () => {
         <button onClick={onBadClick}>Bad</button>
       </div>
       {/* Statistics */}
-      <div>
-        <h1>Statistics</h1>
-        <p>good {good}</p>
-        <p>neutral {neutral}</p>
-        <p>bad {bad}</p>
-        <p>all {total}</p>
-        <p>average {average}</p>
-        <p>positive {goodPercent} %</p>
-      </div>
+      <Statistics
+        good={good}
+        neutral={neutral}
+        bad={bad}
+        total={total}
+        avg={average}
+        percent={goodPercent}
+      />
     </div>
   );
 };
