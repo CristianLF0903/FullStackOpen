@@ -1,3 +1,5 @@
+import StatisticLine from "./StatisticLine";
+
 const Statistics = (props) => {
   return (
     <div>
@@ -6,12 +8,12 @@ const Statistics = (props) => {
         <p>No feedback given</p>
       ) : (
         <>
-          <p>good {props.good}</p>
-          <p>neutral {props.neutral}</p>
-          <p>bad {props.bad}</p>
-          <p>all {props.total}</p>
-          <p>average {props.avg}</p>
-          <p>positive {props.percent} %</p>
+          <StatisticLine text="good" value={props.good} />
+          <StatisticLine text="neutral" value={props.neutral} />
+          <StatisticLine text="bad" value={props.bad} />
+          <StatisticLine text="total" value={props.total} />
+          <StatisticLine text="average" value={props.avg} />
+          <StatisticLine text="positive" value={props.percent + " %"} />
         </>
       )}
     </div>
