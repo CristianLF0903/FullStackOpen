@@ -18,6 +18,10 @@ const App = () => {
     setBad(bad + 1);
   };
 
+  const total = good + bad + neutral;
+  const average = total === 0 ? 0 : (good - bad) / total;
+  const goodPercent = total === 0 ? 0 : (good / total) * 100;
+
   return (
     <div>
       {/* Buttons */}
@@ -33,6 +37,9 @@ const App = () => {
         <p>good {good}</p>
         <p>neutral {neutral}</p>
         <p>bad {bad}</p>
+        <p>all {total}</p>
+        <p>average {average}</p>
+        <p>positive {goodPercent} %</p>
       </div>
     </div>
   );
