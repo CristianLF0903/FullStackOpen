@@ -6,15 +6,27 @@ const PersonForm = ({
   addName,
 }) => {
   return (
-    <form onSubmit={addName}>
-      <div>
-        name: <input value={newName} onChange={handleNewName} />
+    <form className="person-form" onSubmit={addName}>
+      <div className="form-group">
+        <label>
+          name:{" "}
+          <input className="input" value={newName} onChange={handleNewName} />
+        </label>
+      </div>
+      <div className="form-group">
+        <label>
+          number:{" "}
+          <input
+            className="input"
+            value={newNumber}
+            onChange={handleNewNumber}
+          />
+        </label>
       </div>
       <div>
-        number: <input value={newNumber} onChange={handleNewNumber} />
-      </div>
-      <div>
-        <button type="submit">add</button>
+        <button className="btn" type="submit">
+          add
+        </button>
       </div>
     </form>
   );

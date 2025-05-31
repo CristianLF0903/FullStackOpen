@@ -1,0 +1,156 @@
+:root {
+  --primary: #4f8cff;
+  --danger: #ff4f4f;
+  --bg: #f7f9fb;
+  --border: #e0e6ed;
+  --radius: 8px;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --font: "Segoe UI", "Roboto", Arial, sans-serif;
+}
+
+body {
+  background: var(--bg);
+  font-family: var(--font);
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 480px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 2rem 2.5rem;
+}
+
+.main-title {
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.filter-bar {
+  margin-bottom: 1.5rem;
+  text-align: right;
+}
+
+.notes-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 2rem 0;
+}
+
+.note-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.7rem 1rem;
+  margin-bottom: 0.7rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.note-item.important {
+  border-left: 4px solid var(--primary);
+  background: #eaf3ff;
+}
+
+.note-content {
+  font-size: 1rem;
+  color: #222;
+}
+
+.note-form {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.input {
+  flex: 1;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.input:focus {
+  border-color: var(--primary);
+}
+
+.btn {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 1px 3px rgba(79, 140, 255, 0.08);
+}
+
+.btn:hover {
+  background: #2563eb;
+}
+
+.btn-toggle {
+  margin-left: 1rem;
+  background: #e0e6ed;
+  color: #222;
+  border: 1px solid var(--border);
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-toggle:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+.btn-toggle-rm {
+  margin-left: 1rem;
+  background: var(--danger);
+  color: #fff;
+  border: 1px solid var(--border);
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-toggle-rm:hover {
+  background: #d32f2f;
+  color: #fff;
+}
+
+.message {
+  margin: 1rem 0;
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1.5px solid transparent;
+  text-align: center;
+  transition: background 0.2s, border 0.2s;
+}
+
+.message-success {
+  background: #e6f9ed;
+  color: #217a3c;
+  border-color: #34d399;
+}
+
+.message-alert {
+  background: #fffbe6;
+  color: #b7791f;
+  border-color: #facc15;
+}
+
+.message-error {
+  background: #ffeaea;
+  color: #b91c1c;
+  border-color: #f87171;
+}

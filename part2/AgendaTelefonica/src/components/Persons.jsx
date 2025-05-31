@@ -1,19 +1,25 @@
-const Persons = ({ filteredPersons, toggleRemove }) => {
+const Persons = ({ filteredPersons, toggleRemove, toggleUpdate }) => {
   return (
-    <div>
+    <div className="persons-list">
       {filteredPersons.map((person) => (
-        <div
-          key={person.name}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            marginBottom: "10px",
-          }}
-        >
-          <span style={{ marginRight: "10px" }}>
-            {person.name} - {person.number}
+        <div key={person.name} className="person-row">
+          <span className="person-info">
+            {person.name} <br></br> {person.number}
           </span>
-          <button onClick={() => toggleRemove(person.id)}>Delete</button>
+          <div className="btn-container">
+            <button
+              className="btn btn-toggle"
+              onClick={() => toggleUpdate(person.id)}
+            >
+              Actualizar
+            </button>
+            <button
+              className="btn btn-delete"
+              onClick={() => toggleRemove(person.id)}
+            >
+              Delete
+            </button>
+          </div>
         </div>
       ))}
     </div>
