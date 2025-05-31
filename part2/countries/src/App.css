@@ -1,0 +1,145 @@
+:root {
+  --primary: #4f8cff;
+  --danger: #ff4f4f;
+  --bg: #f7f9fb;
+  --border: #e0e6ed;
+  --radius: 8px;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --font: "Segoe UI", "Roboto", Arial, sans-serif;
+}
+
+body {
+  background: var(--bg);
+  font-family: var(--font);
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 2rem 2.5rem;
+}
+
+h1 {
+  color: var(--primary);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+input[type="text"] {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+  width: 100%;
+  max-width: 350px;
+}
+
+input[type="text"]:focus {
+  border-color: var(--primary);
+}
+
+.countries {
+  margin-top: 1.5rem;
+}
+
+.countryRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.7rem 1rem;
+  margin-bottom: 0.7rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.countryRow p {
+  margin: 0;
+  font-size: 1rem;
+  color: #222;
+}
+
+.countryRow button {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.4rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.countryRow button:hover {
+  background: #2563eb;
+}
+
+.countryDetails {
+  margin-top: 2rem;
+  background: #eaf3ff;
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(79, 140, 255, 0.08);
+  border: 1px solid var(--primary);
+}
+
+.countryDetails h2 {
+  color: var(--primary);
+  margin-top: 0;
+}
+
+.countryDetails img {
+  margin-top: 1rem;
+  max-width: 120px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.countryDetails ul {
+  padding-left: 1.2rem;
+}
+
+.message {
+  margin: 1rem 0;
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1.5px solid transparent;
+  text-align: center;
+  transition: background 0.2s, border 0.2s;
+}
+
+.message-success {
+  background: #e6f9ed;
+  color: #217a3c;
+  border-color: #34d399;
+}
+
+.message-alert {
+  background: #fffbe6;
+  color: #b7791f;
+  border-color: #facc15;
+}
+
+.message-error {
+  background: #ffeaea;
+  color: #b91c1c;
+  border-color: #f87171;
+}
