@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import countryService from "./services/countries";
+import weather from "./services/weather";
 import Message from "./components/Message";
 import Country from "./components/Country";
 import CountryDetails from "./components/CountryDetails";
@@ -64,6 +65,9 @@ function App() {
       } else return;
     }
     if (filteredCountries.length === 1) {
+      weather.getWeather(filteredCountries[0]).then((data) => {
+        console.log("Weather data:", data);
+      });
       return <CountryDetails country={filteredCountries[0]} />;
     }
     if (filteredCountries.length === 0 && searchTerm) {
