@@ -77,7 +77,15 @@ const App = () => {
       setTimeout(() => {
         setMessage(null);
       }, 5000);
-    });
+    }).catch((error) => {
+      setMessage({
+        text: error.response.data.error,
+        type: "error",
+      });
+      setTimeout(() => {
+        setMessage(null);
+      }, 10000);
+    })
   };
 
   const toggleRemove = (id) => {
@@ -117,15 +125,14 @@ const App = () => {
           setMessage(null);
         }, 5000);
       })
-      .catch(() => {
-        setPersons(persons.pop(person));
+      .catch((error) => {
         setMessage({
-          text: `Information of ${person.name} has already been removed from server`,
+          text: error.response.data.error,
           type: "error",
         });
         setTimeout(() => {
           setMessage(null);
-        }, 5000);
+        }, 10000);
       });
   };
 

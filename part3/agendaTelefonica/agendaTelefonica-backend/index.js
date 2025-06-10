@@ -102,7 +102,7 @@ app.put("/api/persons/:id", (req, res, next) => {
     name: person.name,
     Number: person.number,
   };
-  Person.findByIdAndUpdate(req.params.id, updatedPerson, {new:true})
+  Person.findByIdAndUpdate(req.params.id, updatedPerson, {new:true, runValidators: true})
     .then((result) => {
       console.log(
         'updated '.green +

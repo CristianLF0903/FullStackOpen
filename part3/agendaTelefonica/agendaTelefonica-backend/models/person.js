@@ -18,8 +18,23 @@ mongoose.connect(url).then(() => {
 
 
 const personSchema = new mongoose.Schema({
-  name: String,
-  Number: String
+  name: {
+    type: String,
+    required: true,
+    minlength: 3,
+    unique: true
+  },
+  Number: {
+    type: String,
+    required: true,
+    minlength: 8,
+    validate: {
+      validator: function(v) {
+        return /\d{2,3}-\d+/.test(v);
+      },
+      message: props => `${props.value} is not a valid phone number!`
+    }
+  }
 })
 
 personSchema.set('toJSON', {
@@ -31,5 +46,22 @@ personSchema.set('toJSON', {
     delete returnedObject.__v
   }
 })
+
+const validatePhoneNumber = (number) => {
+  const phoneRegex = /^\d{2,3}-\d+$/;
+  return phoneRegex.test(number) && number.length >= 8;
+}
+
+personSchema.path('Number').validate(function(value) {
+  return validatePhoneNumber(value);
+}
+, 'Invalid phone number format. It should be in the format "XX-XXXXXXX" or "XXX-XXXXXXX".');
+
+
+personSchema.path("name").validate(async (value) => {
+    const count = await mongoose.models.Persons.countDocuments({ name: value });
+    return count === 0 && value.length >= 3;
+}
+, 'Name must be at least 3 characters long and unique.');
 
 module.exports = mongoose.model('Persons', personSchema)
