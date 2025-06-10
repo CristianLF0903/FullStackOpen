@@ -1,17 +1,8 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
 const colors = require("colors");
 
-if (process.argv.length<3) {
-  console.log('give password as argument'.red)
-  process.exit(1)
-}
-
-// CyF8LVHuKHUr0MZ6
-
-const password = process.argv[2]
-
-const url =
-  `mongodb+srv://clondonof:${password}@cluster0.6dhpwjp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
+const url = process.env.MONGODB_URI;
 
 mongoose.set('strictQuery',false)
 
@@ -22,11 +13,19 @@ const personSchema = new mongoose.Schema({
   Number: String
 })
 
+personSchema.set('toJSON', {
+  transform: (document, returnedObject) => {
+    returnedObject.id = returnedObject._id.toString()
+    delete returnedObject._id
+    delete returnedObject.__v
+  }
+})
+
 const Person = mongoose.model('Persons', personSchema)
 
-const person = process.argv.slice(3)
+const person = process.argv.slice(2)
 
-if (process.argv.length === 5) {
+if (process.argv.length === 4) {
   console.log('Adding new person to phonebook...'.green)
   const newPerson = new Person({
     name: person[0],

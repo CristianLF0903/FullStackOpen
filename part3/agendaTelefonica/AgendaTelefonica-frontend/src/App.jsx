@@ -109,6 +109,9 @@ const App = () => {
       .update(id, updatedPerson)
       .then((returnedPerson) => {
         setPersons(persons.map((p) => (p.id !== id ? p : returnedPerson)));
+        setFilteredPersons(
+          filteredPersons.map((p) => (p.id !== id ? p : returnedPerson))
+        );
         setMessage({ text: `Updated ${person.name}`, type: "success" });
         setTimeout(() => {
           setMessage(null);
