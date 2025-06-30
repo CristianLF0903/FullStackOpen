@@ -3,5 +3,25 @@
     "dotenv": "^17.0.0",
     "express": "^5.1.0",
     "nodemon": "^3.1.10"
-  }
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "build:ui": "rm -rf build && cd ../frontend/ && npm run build && cp -r build ../backend",
+    "deploy": "fly deploy",
+    "deploy:full": "npm run build:ui && npm run deploy",
+    "logs:prod": "fly logs",
+    "lint": "eslint .",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "name": "part4",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
