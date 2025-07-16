@@ -4,6 +4,7 @@ const cors = require('cors')
 const config = require('./utils/config')
 const logger = require('./utils/logger')
 const mongoose = require('mongoose')
+const middleware = require('./utils/middleware')
 const blogsRouter = require('./controllers/blogs')
 
 mongoose.set('strictQuery', false)
