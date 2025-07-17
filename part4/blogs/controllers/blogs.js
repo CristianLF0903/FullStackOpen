@@ -1,10 +1,10 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
 
-blogsRouter.get('/', (request, response) => {
-	Blog.find({}).then((blogs) => {
-		response.json(blogs)
-	})
+blogsRouter.get('/', async (request, response) => {
+	const blogs = await Blog.find({})
+
+	response.json(blogs)
 })
 
 blogsRouter.post('/', async (request, response) => {
@@ -19,13 +19,11 @@ blogsRouter.post('/', async (request, response) => {
 		for (let i = 0; i < data.length; i++) {
 			const missing = checkMissingProps(data[i])
 			if (missing.length > 0) {
-				return response
-					.status(400)
-					.json({
-						error: `Objeto en índice ${i} falta propiedad(es): ${missing.join(
-							', '
-						)}`,
-					})
+				return response.status(400).json({
+					error: `Objeto en índice ${i} falta propiedad(es): ${missing.join(
+						', '
+					)}`,
+				})
 			}
 		}
 		try {
@@ -48,6 +46,55 @@ blogsRouter.post('/', async (request, response) => {
 		} catch (error) {
 			response.status(400).json({ error: error.message })
 		}
+	}
+})
+
+blogsRouter.delete('/:id', async (request, response) => {
+	const id = request.params.id
+
+	try {
+		const deletedBlog = await Blog.findByIdAndDelete(id)
+
+		if (!deletedBlog) {
+			return response.status(404).json({ error: 'Blog not found' })
+		}
+
+		response.status(204).end()
+	} catch (error) {
+		console.error(error)
+		response.status(500).json({ error: 'Something went wrong' })
+	}
+})
+
+blogsRouter.put('/:id', async (request, response) => {
+	const { title, author, url, likes } = request.body
+
+	const blogToUpdate = {
+		title,
+		author,
+		url,
+		likes,
+	}
+
+	try {
+		const updatedBlog = await Blog.findByIdAndUpdate(
+			request.params.id,
+			blogToUpdate,
+			{
+				new: true, // devuelve el documento actualizado
+				runValidators: true, // valida los cambios según el schema
+				context: 'query',
+			}
+		)
+
+		if (!updatedBlog) {
+			return response.status(404).json({ error: 'Blog not found' })
+		}
+
+		response.json(updatedBlog)
+	} catch (error) {
+		console.error(error)
+		response.status(500).json({ error: 'Something went wrong' })
 	}
 })
 

@@ -67,6 +67,41 @@ test('creation fails with status 400 if url is missing', async () => {
 	await api.post('/api/blogs').send(newBlog).expect(400)
 })
 
+test('delete an existing blog', async () => {
+	const blogsAtStart = await Blog.find({})
+	const blogToDelete = blogsAtStart[0]
+
+	const res = await api.delete(`/api/blogs/${blogToDelete._id}`).expect(204)
+
+	const blogsAtEnd = await Blog.find({})
+	assert.strictEqual(blogsAtEnd.length, blogsAtStart.length - 1)
+	assert.ok(
+		!blogsAtEnd.find((b) => b._id.toString() === blogToDelete._id.toString())
+	)
+})
+
+test('update an existing blog', async () => {
+	const blogsAtStart = await Blog.find({})
+	const blogToUpdate =
+		blogsAtStart[Math.floor(Math.random() * (blogsAtStart.length + 1))]
+
+	const updatedData = {
+		title: 'Blog Actualizado',
+		author: 'Autor Actualizado',
+		url: 'http://nuevo-url.com',
+		likes: 99,
+	}
+
+	const res = await api
+		.put(`/api/blogs/${blogToUpdate._id}`)
+		.send(updatedData)
+		.expect(200)
+		.expect('Content-Type', /application\/json/)
+
+	assert.strictEqual(res.body.title, updatedData.title)
+	assert.strictEqual(res.body.likes, updatedData.likes)
+})
+
 after(async () => {
 	await mongoose.connection.close()
 })
