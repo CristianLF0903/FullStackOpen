@@ -1,8 +1,12 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
+const User = require('../models/user')
 
 blogsRouter.get('/', async (request, response) => {
-	const blogs = await Blog.find({})
+	const blogs = await Blog.find({ user: request.userId }).populate('user', {
+		username: 1,
+		name: 1,
+	})
 
 	response.json(blogs)
 })
@@ -25,6 +29,7 @@ blogsRouter.post('/', async (request, response) => {
 					)}`,
 				})
 			}
+			data[i].user = request.userId
 		}
 		try {
 			const result = await Blog.insertMany(data)
@@ -39,9 +44,11 @@ blogsRouter.post('/', async (request, response) => {
 				.status(400)
 				.json({ error: `Falta propiedad(es): ${missing.join(', ')}` })
 		}
+		data.user = request.userId
 		try {
 			const blog = new Blog(data)
 			const result = await blog.save()
+
 			response.status(201).json(result)
 		} catch (error) {
 			response.status(400).json({ error: error.message })
@@ -53,11 +60,16 @@ blogsRouter.delete('/:id', async (request, response) => {
 	const id = request.params.id
 
 	try {
-		const deletedBlog = await Blog.findByIdAndDelete(id)
+		const deletedBlog = await Blog.findById(id)
 
 		if (!deletedBlog) {
 			return response.status(404).json({ error: 'Blog not found' })
 		}
+		if (deletedBlog.user.toString() !== request.userId.toString()) {
+			return response.status(403).json({ error: 'Unauthorized' })
+		}
+
+		await Blog.findByIdAndDelete(id)
 
 		response.status(204).end()
 	} catch (error) {
